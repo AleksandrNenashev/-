@@ -1,0 +1,19 @@
+.catalog{
+  overflow: hidden;
+}
+
+.catalog-group{
+  margin-top: 3.625em;
+}
+
+
+@media screen and (max-width: 992px){
+
+}
+
+
+@media screen and (max-width: 576px){
+  .catalog-group{
+    margin-top: 2.5em;
+  }
+}

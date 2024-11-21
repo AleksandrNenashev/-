@@ -1,0 +1,141 @@
+.m-section{
+  padding: 2.5em 0;
+}
+
+.swiper-pagination{
+  @include center;
+  position: static;
+  margin-top: 1.875em;
+  &-bullet{
+    background-color: #d9d9d9;
+    width: .75em;
+    height: .75em;
+    opacity: 1;
+    margin: 0 .375em !important;
+    &-active{
+      background-color: $supernova;
+    }
+  }
+}
+
+.main-slider{
+  .swiper{
+    &-container{
+      overflow: hidden;
+    }
+    &-wrapper{
+      align-items: stretch;
+    }
+    &-slide{
+      height: auto;
+    }
+  }
+  &__img{
+    height: 100%;
+    display: block;
+    img{
+      width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+}
+
+.offer{
+  padding: 2em 0 2.5em;
+  &__grid{
+    display: grid;
+    grid-template-columns: repeat(2,calc(50% - .3125em));
+    gap: .625em;
+  }
+}
+
+.offer-card{
+  display: block;
+  position: relative;
+  &__img{
+    @include imgCover(68.4%);
+  }
+  &__badge{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2.8125em;
+    padding: 0 .8125em;
+    display: flex;
+    align-items: center;
+    background-color: $primary;
+    color: $white;
+    border-radius: 0 0 1.5em 0;
+    font-family: $font2;
+    font-weight: 500;
+  }
+}
+
+.offer-link{
+  display: block;
+  padding-bottom: 68.4%;
+  position: relative;
+  background: #d9d9d9;
+  &__inner{
+    @include centerAbsolute;
+    max-width: 9.25em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__img{
+    width: 2.3125em;
+    margin-bottom: .75em;
+  }
+  &__text{
+    font-size: 1.3125em;
+    line-height: 120%;
+    color: $peat;
+  }
+}
+
+
+@media screen and (max-width: 992px){
+
+}
+
+
+@media screen and (max-width: 576px){
+  .m-section{
+    padding: 1.25em 0;
+  }
+
+  .swiper-pagination{
+    margin-top: .625em;
+    &-bullet{
+      width: .3125em;
+      height: .3125em;
+      margin: 0 .15625em !important;
+      &-active{
+        background-color: $supernova;
+      }
+    }
+  }
+
+  .offer{
+    padding: 1.875em 0 1.25em;
+    &__grid{
+      grid-template-columns: 100%;
+    }
+  }
+
+  .offer-card{
+    &__badge{
+      height: 2.375em;
+      padding: 0 .625em;
+      border-radius: 0 0 1.25em 0;
+    }
+  }
+
+  .offer-link{
+    display: none;
+  }
+}

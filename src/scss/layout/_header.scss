@@ -1,0 +1,27 @@
+.header{
+  &__inner{
+    display: flex;
+  }
+  &__logo{
+    display: block;
+    flex-shrink: 0;
+    img{
+      width: 100%;
+      display: block;
+    }
+  }
+}
+
+.burger{
+  display: none;
+}
+
+
+@media screen and (max-width: 992px){
+
+}
+
+
+@media screen and (max-width: 576px){
+
+}

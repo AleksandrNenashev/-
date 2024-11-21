@@ -1,0 +1,9 @@
+@import '../_mixins';
+@include font-face('Arial', 'ArialNarrow', 300);
+@include font-face('Arial', 'Arial-Regular', 400);
+@include font-face('Arial', 'Arial-Italic', 400,Italic);
+@include font-face('Arial', 'Arial-Bold', 700);
+@include font-face('PF Agora Sans Pro', 'PFAgoraSansPro-Regular', 400);
+@include font-face('PF Agora Sans Pro', 'PFAgoraSansPro-Medium', 500);
+@include font-face('PF Agora Sans Pro', 'PFAgoraSansPro-Bold', 700);
+@include font-face('Segoe UI', 'Segoe UI', 400);

@@ -1,0 +1,1 @@
+<iframe src="https://yandex.ru/sprav/widget/rating-badge/65426590507?type=rating" width="150" height="50" frameborder="0"></iframe>

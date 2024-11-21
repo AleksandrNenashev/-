@@ -1,0 +1,134 @@
+.news{
+  &__grid{
+    display: grid;
+    grid-template-columns: repeat(2,calc(50% - 1.875em));
+    gap: 1em 3.75em;
+    margin-top: 2.5em;
+  }
+  &__nav{
+    margin-top: 2.5em;
+    display: flex;
+    justify-content: center;
+  }
+  &__link{
+    font-size: 1.125em;
+    text-decoration: underline;
+  }
+}
+
+.news-card{
+  &__date{
+    font-size: 1.125em;
+    line-height: 167%;
+    color: $gray-nickel;
+  }
+  &__title{
+    margin-top: .4em;
+    font-size: 1.125em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: $primary;
+    font-family: $font2;
+  }
+  &__text{
+    margin-top: .4em;
+    font-size: 1.125em;
+    color: $fuscous-gray;
+    a{
+      line-height: 167%;
+      text-decoration: underline;
+      text-decoration-skip-ink: none;
+      color: $tango;
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
+
+.advantages{
+  &__grid{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2.5em;
+  }
+}
+
+.advantage-card{
+  width: 25%;
+  min-height: 13.25em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .75em 1em;
+  color: $peat;
+  &__img{
+    height: 6.25em;
+    display: block;
+    margin-bottom: 1.25em;
+    img{
+      height: 100%;
+    }
+  }
+  &__title{
+    font-weight: 700;
+    font-size: .875em;
+    line-height: 144%;
+    text-transform: uppercase;
+    text-align: center;
+  }
+}
+
+
+@media screen and (max-width: 992px){
+
+}
+
+
+@media screen and (max-width: 576px){
+  .news{
+    &__grid{
+      grid-template-columns: 100%;
+      margin-top: .625em;
+    }
+    &__nav{
+      margin-top: 1.875em;
+    }
+    &__link{
+      font-size: .75em;
+    }
+  }
+
+  .news-card{
+    &__date{
+      font-size: .75em;
+    }
+    &__title{
+      font-size: .75em;
+    }
+    &__text{
+      font-size: .75em;
+    }
+  }
+
+  .advantages{
+    &__grid{
+      margin-top: 1em;
+      justify-content: center;
+    }
+  }
+
+  .advantage-card{
+    width: calc(100% / 3);
+    min-height: 7em;
+    padding: .5em 1em;
+    &__img{
+      height: 3.625em;
+      margin-bottom: .625em;
+    }
+    &__title{
+      font-size: .5em;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@import 'vars';
+@import 'components/_text.scss';
+@import 'components/_buttons.scss';
+@import "components/_inputs.scss";
+@import "components/_pagination.scss";
+@import "components/_tabs.scss";
+@import "components/_grid.scss";
+.socials{
+  display: flex;
+  align-items: center;
+  &__item{
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: #1A1A1A;
+    @include lastM(0 .75em 0 0);
+    @include center;
+    &:hover{
+      path{
+        fill-opacity: 1;
+        &:not(._not-fill){
+          fill: #fff;
+        }
+      }
+    }
+  }
+}
+
+.compare-btn,
+.favourite-btn{
+  @include center;
+  svg{
+    width: 100%;
+    height: auto;
+  }
+}
+
+.favourite-btn{
+  width: 1.4375em;
+  &:hover{
+    path{
+      opacity: 1;
+    }
+  }
+  &._added{
+    path{
+      opacity: 1;
+      stroke: $primary;
+      fill: $primary;
+    }
+  }
+}
+
+.compare-btn{
+  width: 1.5em;
+  &:hover{
+    g{
+      opacity: 1;
+    }
+  }
+  &._added{
+    g{
+      opacity: 1;
+    }
+    line{
+      stroke: $primary;
+    }
+  }
+}
