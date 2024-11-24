@@ -95,18 +95,18 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
                                 <img src="<?= SITE_TEMPLATE_PATH ?>/img/search.svg" alt="">
                             </a>
                             <?$APPLICATION->IncludeComponent(
-	"bitrix:sale.basket.basket.small", 
-	"basket4", 
-	array(
-		"PATH_TO_BASKET" => "/personal/cart/",
-		"PATH_TO_ORDER" => "/personal/cart/",
-		"SHOW_DELAY" => "N",
-		"SHOW_NOTAVAIL" => "N",
-		"SHOW_SUBSCRIBE" => "N",
-		"COMPONENT_TEMPLATE" => "basket4"
-	),
-	false
-);?>
+                                "bitrix:sale.basket.basket.small", 
+                                "basket4", 
+                                array(
+                                    "PATH_TO_BASKET" => "/personal/cart/",
+                                    "PATH_TO_ORDER" => "/personal/cart/",
+                                    "SHOW_DELAY" => "N",
+                                    "SHOW_NOTAVAIL" => "N",
+                                    "SHOW_SUBSCRIBE" => "N",
+                                    "COMPONENT_TEMPLATE" => "basket4"
+                                ),
+                                false
+                            );?>
                         </div>
                     </div>
 
@@ -382,168 +382,14 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
                     	false
                     ); ?>
 
-            <div class="sales m-section">
-                <div class="container _type2">
-                    <div class="h2 text-center">
-                        распродажа
-                    </div>
-                    <div class="sales-slider slider">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-
-                                        <div class="product-card__badges">
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/new.png" alt="">
-                                            </div>
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/sale.png" alt="">
-                                            </div>
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/eco.png" alt="">
-                                            </div>
-                                        </div>
-                                        <a href="" class="product-card__img">
-                                            <img src="<?= SITE_TEMPLATE_PATH ?>/img/product.webp" alt="">
-                                        </a>
-                                        <div class="product-card__title">
-                                            <a href="" class="text21 text14-mob">
-                                                Шкаф-витрина "Луи Филипп ОВ <br>
-            28.01"
-                                            </a>
-                                        </div>
-                                        <div class="product-card__prices">
-                                            <div class="product-card__price">
-                                                51 840 Р
-                                            </div>
-                                            <div class="product-card__price2">
-                                                74 490 Р
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-
-                                        <div class="product-card__badges">
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/new.png" alt="">
-                                            </div>
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/sale.png" alt="">
-                                            </div>
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/eco.png" alt="">
-                                            </div>
-                                        </div>
-                                        <a href="" class="product-card__img">
-                                            <img src="<?= SITE_TEMPLATE_PATH ?>/img/product.webp" alt="">
-                                        </a>
-                                        <div class="product-card__title">
-                                            <a href="" class="text21 text14-mob">
-                                                Шкаф-витрина "Луи Филипп ОВ <br>
-            28.01"
-                                            </a>
-                                        </div>
-                                        <div class="product-card__prices">
-                                            <div class="product-card__price">
-                                                51 840 Р
-                                            </div>
-                                            <div class="product-card__price2">
-                                                74 490 Р
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-
-                                        <div class="product-card__badges">
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/new.png" alt="">
-                                            </div>
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/sale.png" alt="">
-                                            </div>
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/eco.png" alt="">
-                                            </div>
-                                        </div>
-                                        <a href="" class="product-card__img">
-                                            <img src="<?= SITE_TEMPLATE_PATH ?>/img/product.webp" alt="">
-                                        </a>
-                                        <div class="product-card__title">
-                                            <a href="" class="text21 text14-mob">
-                                                Шкаф-витрина "Луи Филипп ОВ <br>
-            28.01"
-                                            </a>
-                                        </div>
-                                        <div class="product-card__prices">
-                                            <div class="product-card__price">
-                                                51 840 Р
-                                            </div>
-                                            <div class="product-card__price2">
-                                                74 490 Р
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-
-                                        <div class="product-card__badges">
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/new.png" alt="">
-                                            </div>
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/sale.png" alt="">
-                                            </div>
-
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/eco.png" alt="">
-                                            </div>
-                                        </div>
-                                        <a href="" class="product-card__img">
-                                            <img src="<?= SITE_TEMPLATE_PATH ?>/img/product.webp" alt="">
-                                        </a>
-                                        <div class="product-card__title">
-                                            <a href="" class="text21 text14-mob">
-                                                Шкаф-витрина "Луи Филипп ОВ <br>
-            28.01"
-                                            </a>
-                                        </div>
-                                        <div class="product-card__prices">
-                                            <div class="product-card__price">
-                                                51 840 Р
-                                            </div>
-                                            <div class="product-card__price2">
-                                                74 490 Р
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
-                </div>
-            </div>
+                    <?$APPLICATION->IncludeComponent("bitrix:main.include",
+                                                     ".default", array(
+													"AREA_FILE_SHOW" => "file",
+													"PATH" => "/includes/sale_mob.php",
+													"EDIT_TEMPLATE" => ""
+													),
+													false
+												);?>
 
             <div class="offer2 m-section _tabs-parent">
                 <div class="container">
