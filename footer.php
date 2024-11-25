@@ -96,84 +96,53 @@
                     <div class="footer-bottom__inner">
                         <div class="footer-menu">
                             <div class="footer-nav">
-                                <div class="footer-nav__title">
-                                    Главное меню
-                                </div>
                                 <?$APPLICATION->IncludeComponent(
-																	"bitrix:menu", 
-																	"bottom_menu1", 
-																	array(
-																		"ROOT_MENU_TYPE" => "top",
-																		"MENU_CACHE_TYPE" => "A",
-																		"MENU_CACHE_TIME" => "3600",
-																		"MENU_CACHE_USE_GROUPS" => "Y",
-																		"MENU_CACHE_GET_VARS" => array(
-																		),
-																		"MAX_LEVEL" => "1",
-																		"CHILD_MENU_TYPE" => "left",
-																		"USE_EXT" => "N",
-																		"DELAY" => "N",
-																		"ALLOW_MULTI_SELECT" => "N"
-																	),
-																	false
-																);?>
-                                <div class="footer-nav__links">
-                                    <div class="footer-nav__links-group">
-                                        <a href="" class="footer-nav__link">Гарантия</a>
-                                        <a href="" class="footer-nav__link">Сборка</a>
-                                        <a href="" class="footer-nav__link">Производители</a>
-                                    </div>
-                                    <div class="footer-nav__links-group">
-                                        <a href="" class="footer-nav__link">Доставка</a>
-                                        <a href="" class="footer-nav__link">Контакты</a>
-                                        <a href="" class="footer-nav__link">Карта сайта</a>
-                                    </div>
-                                </div>
+	"bitrix:menu", 
+	"bottom_menu_mob", 
+	array(
+		"ROOT_MENU_TYPE" => "top",
+		"MENU_CACHE_TYPE" => "A",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "left",
+		"USE_EXT" => "N",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "N",
+		"COMPONENT_TEMPLATE" => "bottom_menu_mob"
+	),
+	false
+);?>
                             </div>
                             <div class="footer-nav _type2">
-                                <div class="footer-nav__title">
-                                    О магазине
-                                </div>
+
                                 <?$APPLICATION->IncludeComponent(
-																	"bitrix:menu", 
-																	"bottom_menu", 
-																	array(
-																		"ROOT_MENU_TYPE" => "about",
-																		"MENU_CACHE_TYPE" => "A",
-																		"MENU_CACHE_TIME" => "3600",
-																		"MENU_CACHE_USE_GROUPS" => "Y",
-																		"MENU_CACHE_GET_VARS" => array(
-																		),
-																		"MAX_LEVEL" => "1",
-																		"CHILD_MENU_TYPE" => "left",
-																		"USE_EXT" => "N",
-																		"DELAY" => "N",
-																		"ALLOW_MULTI_SELECT" => "N"
-																	),
-																	false
-																);?>
-                                <div class="footer-nav__links">
-                                    <div class="footer-nav__links-group">
-                                        <a href="" class="footer-nav__link">Доставка</a>
-                                        <a href="" class="footer-nav__link">Сборка</a>
-                                        <a href="" class="footer-nav__link">Гарантия</a>
-                                        <a href="" class="footer-nav__link">Производители</a>
-                                    </div>
-                                    <div class="footer-nav__links-group">
-                                        <a href="" class="footer-nav__link">Отзывы и предложения</a>
-                                        <a href="" class="footer-nav__link">Поставщикам</a>
-                                        <a href="" class="footer-nav__link">Новости</a>
-                                        <a href="" class="footer-nav__link">Статьи</a>
-                                    </div>
-                                </div>
+									"bitrix:menu", 
+									"bottom_menu_mob2", 
+									array(
+										"ROOT_MENU_TYPE" => "about",
+										"MENU_CACHE_TYPE" => "A",
+										"MENU_CACHE_TIME" => "3600",
+										"MENU_CACHE_USE_GROUPS" => "Y",
+										"MENU_CACHE_GET_VARS" => array(
+										),
+										"MAX_LEVEL" => "1",
+										"CHILD_MENU_TYPE" => "left",
+										"USE_EXT" => "N",
+										"DELAY" => "N",
+										"ALLOW_MULTI_SELECT" => "N",
+										"COMPONENT_TEMPLATE" => "bottom_menu_mob2"
+									),
+									false
+								);?>
+                                
                             </div>
                             <div class="footer-nav _type3">
-                                <div class="footer-nav__title">
-                                    Юридическая информация
-                                </div>
                                 <?$APPLICATION->IncludeComponent(
 																	"bitrix:menu", 
-																	"bottom_menu", 
+																	"bottom_menu3", 
 																	array(
 																		"ROOT_MENU_TYPE" => "urist",
 																		"MENU_CACHE_TYPE" => "N",
@@ -189,16 +158,6 @@
 																	),
 																	false
 																);?>
-                                <div class="footer-nav__links">
-                                    <div class="footer-nav__links-group">
-                                        <a href="" class="footer-nav__link">Правила покупки товара</a>
-                                        <a href="" class="footer-nav__link">Рассрочка</a>
-                                    </div>
-                                    <div class="footer-nav__links-group">
-                                        <a href="" class="footer-nav__link">Способы оплаты</a>
-                                        <a href="" class="footer-nav__link">Политика конфиденциальности и пользовательское  соглашение</a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
