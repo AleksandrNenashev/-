@@ -42,7 +42,7 @@
                                         </div>
 
 										<a href="<?=$item['URL']?>" class="product-card__img"><img src="<?=$item['IMAGE']?>" alt="<?=$item['NAME']?>"></a>
-                                        <div class="product-card__title"> 
+                                        <div style="min-height: 130px;" class="product-card__title"> 
                                             <a href="<?=$item['URL']?>" class="text21 text14-mob"><?=$item['NAME']?></a>
                                         </div>
                                         <div class="product-card__prices">
@@ -54,7 +54,24 @@
                                                 <?=$item['OLD_PRICE']?> Р
                                             <?endif;?>
                                             </div>
-                                            <a class="addtobasket btn btn_green" href="#" id="ajaxaction=add&ajaxaddid=<?=$item['ID']?>">В корзину</a>
+                                            <a style="
+                                            display: flex; 
+                                            -webkit-box-align: center; 
+                                            -ms-flex-align: center; 
+                                            align-items: center; 
+                                            -webkit-box-pack: center; 
+                                            -ms-flex-pack: center; 
+                                            justify-content: center; 
+                                            padding: 0 1.75em; 
+                                            height: 2.625em; 
+                                            background-color: #f48729; 
+                                            color: #fefefe; 
+                                            font-weight: 500; 
+                                            text-transform: uppercase; 
+                                            font-family: 'PF Agora Sans Pro', sans-serif; 
+                                            border-radius: .4375em; 
+                                            margin-top: auto;
+                                            " class="addtobasket btn btn_green" href="#" id="ajaxaction=add&ajaxaddid=<?=$item['ID']?>">КУПИТЬ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -66,41 +83,3 @@
                 </div>
             </div>
             <?endif;?>
-<script>
-    $(document).ready(function () {
-    $(".addtobasket").on("click", function (e) {
-        e.preventDefault();
-
-        var itemId = $(this).attr("id").split("&")[1].split("=")[1]; // Извлекаем ID товара
-
-                $.ajax({
-                    url: '/ajax/ajax.php',  // Путь к файлу
-                    method: 'POST',
-                    data: {
-                        action: 'add',
-                        product_id: itemId
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            updateCart(response.quantity, response.sum);
-                        } else {
-                            alert('Ошибка добавления товара в корзину');
-                        }
-                    },
-                    error: function() {
-                        alert('Ошибка выполнения запроса');
-                    }
-                });
-
-    });
-
-    // Функция для обновления мини-корзины
-    function updateCart(quantity, sum) {
-        $(".header__cart-in a").html("В корзине " + quantity + " товаров");
-        $(".header__cart-drop .header__cart-btn .header__cart-price").html("Итого: " + sum + " Р");
-        $(".header__cart-in").animate({
-            left: "0",
-        }, 1000);
-    }
-});
-</script>
