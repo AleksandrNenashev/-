@@ -1,0 +1,350 @@
+<?
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+CModule::IncludeModule("iblock");
+
+$res_display_properties_descr = CIBlock::GetProperties(2, Array(), Array());
+while($res_display_properties_descr_arr = $res_display_properties_descr->Fetch()){
+    $display_properties_descr[$res_display_properties_descr_arr['CODE']] = $res_display_properties_descr_arr['NAME'];
+}
+if(!empty($arParams['OFFERS_PROPERTY_CODE'])){
+	$display_properties = $arParams['OFFERS_PROPERTY_CODE'];
+} else {
+	$display_properties = $_POST['DISPLAY_PROPERTIES'];
+}
+foreach($display_properties as $dis_prop){
+	$for_post_display_properties .= '<input type="hidden" name="DISPLAY_PROPERTIES[]" value="'.$dis_prop.'">';
+}
+
+
+if(!empty($arParams['OFFERS_PROPERTY_CODE'])){
+	$parent_id = $id_tovara;
+} else {
+	$parent_id = $_POST['PARENT_ID'];
+}
+
+$arSelect = Array("ID", "NAME", "CATALOG_GROUP_".$_SESSION['region_price_id'], "PROPERTY_CML2_LINK");
+foreach($display_properties as $dis_prop){
+	$arSelect[] = 'PROPERTY_'.$dis_prop;
+}
+
+
+$arFilter = Array("IBLOCK_ID"=>2, "ACTIVE"=>"Y", "PROPERTY_CML2_LINK" => $parent_id, "!CATALOG_PRICE_".$_SESSION['region_price_id'] => 0);
+$res = CIBlockElement::GetList(array(), $arFilter, false, false, $arSelect);
+while($ob = $res->GetNextElement())
+{
+	$arFields = $ob->GetFields();
+	$arSku[] = $arFields;
+}
+foreach($arSku as $sku_el){
+	foreach($display_properties as $dis_prop){
+		$prop_name = 'PROPERTY_'.$dis_prop.'_VALUE';
+		if(!empty($sku_el[$prop_name])){
+			$skuPropertyEnum[$dis_prop][] = $sku_el[$prop_name];
+		}
+	}
+}
+foreach($skuPropertyEnum as $k => &$val){
+	$val = array_unique($val);
+}
+
+foreach($display_properties as $k => $dis_prop){
+	if(!empty($skuPropertyEnum[$dis_prop])){
+		$tester[] = $dis_prop;
+	}
+}
+$display_properties = $tester;
+
+
+//фильтрованный результат
+if(!empty($_POST)){
+	$display_properties_flip = array_flip($display_properties);
+	$arFilter2 = Array("IBLOCK_ID"=>2, "ACTIVE"=>"Y", "PROPERTY_CML2_LINK" => $parent_id, "!CATALOG_PRICE_".$_SESSION['region_price_id'] => 0);
+	unset($key);
+	unset($val);
+	foreach($_POST['SKU'] as $key => $val){
+		unset($prop_name);
+		$prop_name = 'PROPERTY_'.$key;
+		$arFilter2[$prop_name] = $val;
+
+		unset($res);
+		$res = CIBlockElement::GetList(array(), $arFilter2, false, false, $arSelect);
+		unset($arSku_cur);
+		while($ob = $res->GetNextElement())
+		{
+			$arFields = $ob->GetFields();
+			$arSku_cur[] = $arFields;
+		}
+		foreach($arSku_cur as $sku_el){
+			foreach($display_properties as $k => $dis_prop){
+				$prop_name = 'PROPERTY_'.$dis_prop.'_VALUE';
+				if(!empty($sku_el[$prop_name])){
+					$name_filtered_mass1 = $display_properties_flip[$key];
+					$name_filtered_mass2 = $name_filtered_mass1+1;
+					$name_filtered_mass3 = $display_properties[$name_filtered_mass2];
+					$skuPropertyEnum_cur[$name_filtered_mass3][$dis_prop][] = $sku_el[$prop_name];
+				}
+			}
+		}
+		foreach($skuPropertyEnum_cur as &$val1){
+			foreach($val1 as $k => &$val2){
+				$val2 = array_unique($val2);
+			}
+		}
+		if($_POST['CLICKED'] == $key){
+			break;
+		}
+	}
+}
+
+
+
+
+foreach($display_properties as $k => $dis_prop){
+	$display_properties_activated[$dis_prop] = 'Y';
+	if(empty($_POST['CLICKED'])){
+		break;
+	} elseif($_POST['CLICKED'] == $dis_prop) {
+		$display_properties_activated[$display_properties[$k+1]] = 'Y';
+		break;
+	}
+}
+$display_properties_filtered = $display_properties_activated;
+$display_properties_filtered[$display_properties[0]] = 'N';
+
+foreach($skuPropertyEnum['COLOR'] as $color){
+	$fil[] = $p['VALUE'];
+}
+$arSelect = Array("ID", "NAME", "PREVIEW_PICTURE");
+$arFilter = Array("IBLOCK_ID"=>IntVal(5), "ACTIVE"=>"Y", 'NAME' => $fil);
+$res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+while($ob = $res->GetNextElement())
+{
+	$arFields = $ob->GetFields();
+	$res_colors[$arFields['NAME']] = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+}
+
+?>
+
+
+<div class="prod__head">
+	<div class="prod__meta">
+		<div class="prod__state is-available">В наличии</div>
+	</div>
+	<form class="sku_form">
+		<input name="PARENT_ID" type="hidden" value="<?=$parent_id?>">
+		<?=$for_post_display_properties?>
+		<?
+		$i = 0;
+		foreach($display_properties as $key_dis_prop => $dis_prop){
+			if(count($skuPropertyEnum[$dis_prop]) > 0){
+				if($display_properties_filtered[$dis_prop] == 'Y'){
+					$skuPropertyEnum_foreach = $skuPropertyEnum_cur[$dis_prop][$dis_prop];
+				} else {
+					$skuPropertyEnum_foreach = $skuPropertyEnum[$dis_prop];
+				}
+				?>
+<?if(count($skuPropertyEnum_foreach) == 0 && $dis_prop != 'COLOR'){
+
+?>
+	<input type="hidden" value="<?=$skuPropertyEnum_foreach[0]?>">
+<?} else {
+
+				$i++;
+?>
+				<div class="prod__param">
+					<div class="prod__param-title"><span><?=$i?>.</span><?=$display_properties_descr[$dis_prop]?>:</div>
+					<div class="prod__item">
+						<?if($dis_prop != 'COLOR'){?>
+							<?if(count($skuPropertyEnum_foreach) < 3){?>
+								<?foreach($skuPropertyEnum_foreach as $propEnum){?>
+									<label class="radio">
+										<input class="sku" value="<?=$propEnum?>" type="radio" name="SKU[<?=$dis_prop?>]" data-name="<?=$dis_prop?>" <?if($_POST['SKU'][$dis_prop] == $propEnum){echo 'checked';}?> <?if($display_properties_activated[$dis_prop] != 'Y'){echo 'disabled';}?>>
+										<i></i>
+										<strong><?=$propEnum?></strong>
+									</label>
+								<?}?>
+							<?} else {?>
+								<div class="select">
+									<select class="sku" name="SKU[<?=$dis_prop?>]" data-name="<?=$dis_prop?>" <?if($display_properties_activated[$dis_prop] != 'Y'){echo 'disabled';}?>>
+										<?foreach($skuPropertyEnum_foreach as $propEnum){?>
+											<option value="<?=$propEnum?>" <?if($_POST['SKU'][$dis_prop] == $propEnum){echo 'selected="selected"';}?>><?=$propEnum?></option>
+										<?}?>
+									</select>
+								</div>
+							<?}?>
+						<?} else {?>
+							<div class="js-slider-color"> 
+								<?foreach($skuPropertyEnum_foreach as $propEnum){?>
+									<div class="color js-color js-tooltip-img-key" data-value="<?=$propEnum?>" data-title="
+										<div class='tooltip__with-img'>
+											<div class='tooltip__img'><img src='<?=$res_colors[$propEnum]?>' alt=''></div>
+											<?=$propEnum?>
+										</div>
+									">
+										<img src="<?=$res_colors[$propEnum]?>" alt="">
+									</div>
+								<?}?>
+								<input class="sku" type="hidden" name="SKU[<?=$dis_prop?>]" value="">
+							</div>
+						<?}?>
+					</div>
+				</div>
+
+<?}?>
+			<?}?>
+		<?}?>
+	</form>
+</div>
+<div class="prod__price">
+<!--
+	<?if($arItem['PRICES'][$_SESSION['region_price']]['DISCOUNT_DIFF'] > 0){?>
+		<div class="old-price">Старая цена: <span><?=$arResult['OFFERS']['0']['PRICES'][$_SESSION['region_price']]['PRINT_VALUE_NOVAT']?></span></div>
+	<?}?>
+	<div class="prod__sum"><?=$arResult['OFFERS']['0']['PRICES'][$_SESSION['region_price']]['PRINT_DISCOUNT_VALUE_NOVAT'];?></div>
+-->
+	<a href="#" class="btn btn_green btn_basket" disabled>В корзину</a>
+<!--
+	<div><a href="js-popup-buy" class="buy-click js-popup-link">Быстро купить в 1 клик</a></div>
+-->
+</div>
+<script>
+function ajaxpostshow(urlres, datares, wherecontent){
+       $.ajax({
+           type: "POST",
+           url: urlres,
+           data: datares,
+           dataType: "html",
+           beforeSend: function(){
+                var elementheight = $(wherecontent).height();
+                $(wherecontent).prepend('');
+                $('.ajaxloader').css('height', elementheight);
+                $('.ajaxloader').prepend('');
+            },
+           success: function(fillter){
+                $(wherecontent).html(fillter);
+ 
+           }
+      });
+}
+
+
+
+$(".sku").on("change", function(){
+	var array = $(this).parents('form').serialize();
+	array = array + '&CLICKED=' + $(this).data('name');
+	ajaxpostshow("/catalog/getSkuProd.php", array, ".prod" );
+	return false;
+});
+$('.js-slider-color').slick({
+	slidesToShow: 3,
+	infinite: false,
+	speed: 300,
+	touchMove: true,
+	slidesToScroll: 3
+});
+<?if($display_properties_activated['COLOR'] == 'Y'){?>
+  $(".js-color").on("click", function() {
+	var input_value = $(this).data('value');
+  	$(this).parents(".js-slider-color").find(".js-color").removeClass("is-active");
+	$(this).parents(".js-slider-color").find("input").val(input_value);
+        $(this).addClass("is-active");
+
+	var array = $(this).parents('form').serialize();
+	array = array + '&CLICKED=' + $(this).data('name');
+	ajaxpostshow("/catalog/getSkuProdPrice.php", array, ".prod__price" );
+
+        return false;
+  });
+<?} else {
+	$skuPropertyEnum_keys = array_keys($skuPropertyEnum);
+	$skuPropertyEnum_lastkey = array_pop($skuPropertyEnum_keys);
+	if($_POST['CLICKED'] == $skuPropertyEnum_lastkey){?>
+		var array = $('.sku_form').serialize();
+		array = array + '&CLICKED=' + '<?=$_POST['CLICKED']?>';
+		ajaxpostshow("/catalog/getSkuProdPrice.php", array, ".prod__price" );	
+	<?}
+}?>
+
+<?if(empty($_POST)){?>
+	$("body").prepend( '<div class="tooltip js-tooltip"><div class="tooltip__in"></div></div>' );
+	$("body").prepend( '<div class="tooltip js-tooltip-img has-img"><div class="tooltip__in"></div></div>' );
+<?}?>
+	var tooltip = $(".js-tooltip");
+	var tooltip_img = $(".js-tooltip-img");
+	$(".js-tooltip-key").hover(
+		function(){
+
+			var left = $(this).offset().left;
+			var bottom = $(window).height() - $(this).offset().top;
+			var tooltip_html = $(this).attr("data-title");
+			tooltip.css({
+				left: left,
+				bottom: bottom-8 
+			});
+			tooltip.find(".tooltip__in").html(tooltip_html).fadeIn("fast");
+			tooltip.fadeIn("fast");
+		},
+		function() {
+			tooltip.hide();
+		}
+	);
+
+	$(".js-tooltip-img-key").hover(
+		function(){
+			//tooltip.addClass("has-img");
+			var left = $(this).offset().left;
+			var bottom = $(window).height() - $(this).offset().top;
+			var tooltip_html = $(this).attr("data-title");
+			tooltip_img.css({
+				left: left,
+				bottom: bottom
+			});
+			tooltip_img.find(".tooltip__in").html(tooltip_html).fadeIn("fast");
+			tooltip_img.fadeIn("fast");
+		},
+		function() {
+			tooltip_img.hide();
+		}
+	);
+	tooltip.hover(
+		function(){
+			tooltip.show();
+		},
+		function() {
+			tooltip.hide(); 
+		}
+	);
+	tooltip_img.hover(
+		function(){
+			tooltip_img.show();
+		},
+		function() {
+			tooltip_img.hide(); 
+		}
+	);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?echo '<pre style="display:none;">'; print_r($display_properties); echo '</pre>';?>
+<?//echo '<pre style="display:none;">'; print_r($skuPropertyEnum_lastkey); echo '</pre>';?>
+<?//echo '<pre style="display:none;">'; print_r($skuPropertyEnum_cur); echo '</pre>';?>
+<?//echo '<pre style="display:block;">'; print_r($arSku); echo '</pre>';?>
+<?echo '<pre style="display:none;">'; print_r($_POST); echo '</pre>';?>
+<?echo '<pre style="display:none;">'; print_r($display_properties_activated); echo '</pre>';?>
+<?//echo '<pre style="display:block;">'; print_r($display_properties_filtered); echo '</pre>';?>
+<?//echo '<pre style="display:block;">'; print_r($display_properties_descr); echo '</pre>';?>

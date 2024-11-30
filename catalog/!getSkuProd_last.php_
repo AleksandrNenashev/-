@@ -1,0 +1,40 @@
+<?
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+CModule::IncludeModule("iblock");
+
+
+$arSelect = Array("ID", "NAME", "CATALOG_GROUP_1", "PROPERTY_CML2_LINK");
+foreach($arParams['OFFERS_PROPERTY_CODE'] as $dis_prop){
+	$arSelect[] = 'PROPERTY_'.$dis_prop;
+}
+
+$arFilter = Array("IBLOCK_ID"=>2, "ACTIVE"=>"Y", "PROPERTY_CML2_LINK" => $id_tovara, "!CATALOG_PRICE_1" => 0);
+$res = CIBlockElement::GetList(array(), $arFilter, false, false, $arSelect);
+while($ob = $res->GetNextElement())
+{
+	$arFields = $ob->GetFields();
+
+	foreach($arParams['OFFERS_PROPERTY_CODE'] as $dis_prop){
+		$prop_name = 'PROPERTY_'.$dis_prop.'_VALUE';
+		if(!empty($arFields[$prop_name])){
+			$arResult2[$arFields['ID']][$dis_prop] = $arFields[$prop_name];
+		}
+	}
+	$arResult1[] = $arFields;
+}
+$flip_prop = array_flip($arParams['OFFERS_PROPERTY_CODE']);
+
+foreach($arResult2 as $id => $el){
+	$reverse_el = array_reverse($el);
+	foreach($reverse_el as $prop_name => $val){
+		
+	}
+}
+
+?>
+
+
+
+
+<?echo '<pre style="display:block;">'; print_r($arResult2); echo '</pre>';?>
+<?echo '<pre style="display:block;">'; print_r($arParams['OFFERS_PROPERTY_CODE']); echo '</pre>';?>

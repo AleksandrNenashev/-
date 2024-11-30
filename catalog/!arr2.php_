@@ -1,0 +1,4 @@
+<?
+$arr = Array(123 => '123');
+echo '<pre style="display:block;">'; print_r($arr); echo '</pre>';
+?>

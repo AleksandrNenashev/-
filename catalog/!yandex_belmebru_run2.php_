@@ -1,0 +1,130 @@
+<?
+$start = microtime(true);
+
+$offer_params = array('SLEEP_SIZE', 'MATERIAL', 'COLOR', 'SHIRINA', 'DLINA', 'VISOTA', 'GLUBINA', 'DIAMETR');
+$catalog_params = array('SERIES', 'DLINA_MATRASA', 'DLINA_SPAL_MESTA', 'OBIVKA', 'H_MATRASA', 'H_SPAL_MESTA', 'VISOTA_SPINKI', 'OTDELKA', 'STIL_MEB', 'OBIEM', 'KOLVO_PRUJIN', 'TKAN_CHEHLA', 'TKAN_POKRITIJA', 'TIP_NAMATRASNIKA', 'SEMNI_CHEHOL', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'P14', 'P15', 'P23', 'P24', 'P25', 'P26', 'VISOTA_IZGOLOVIA');
+
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+CModule::IncludeModule("iblock");
+
+
+$date = date('Y-m-d H:i');
+$file = 'yandex_catalog.xml';
+
+$string = '<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="'.$date.'">
+	<shop>
+		<name>belmebru.ru</name>
+		<company>ООО «Белмебель»</company>
+		<url>http://www.belmebru.ru/</url>
+
+		<currencies>
+			<currency id="RUR" rate="1" plus="0"/>
+		</currencies>
+		<categories>
+';
+file_put_contents($file, $string);
+unset($string);
+
+
+
+$rsSect = CIBlockSection::GetList(array(), array("IBLOCK_ID" => 1, "ACTIVE" => "Y"));
+while ($arSect = $rsSect->GetNext())
+{
+	if(!empty($arSect['IBLOCK_SECTION_ID'])){
+		$parentId = ' parentId="'.$arSect['IBLOCK_SECTION_ID'].'"';
+
+	}
+	file_put_contents($file, '<category id="'.$arSect['ID'].'"'.$parentId.'>'.$arSect['NAME'].'</category>', FILE_APPEND);
+}
+
+$string = '</categories>';
+$string .= '<local_delivery_cost>1250</local_delivery_cost>';
+$string .= '<offers>';
+
+file_put_contents($file, $string, FILE_APPEND);
+unset($string);
+
+$arSelect_offers = Array("ID", "NAME", "IBLOCK_ID", "CATALOG_GROUP_1", "CATALOG_PRICE_1", "PROPERTY_CML2_LINK", "PROPERTY_AVAILABLE", "PROPERTY_SLEEP_SIZE", "PROPERTY_MATERIAL", "PROPERTY_COLOR", "PROPERTY_SHIRINA", "PROPERTY_DLINA", "PROPERTY_VISOTA", "PROPERTY_GLUBINA", "PROPERTY_DIAMETR");
+$arFilter_offers = Array("IBLOCK_ID" => 2, "ACTIVE"=>"Y");
+$res_offers = CIBlockElement::GetList(Array(), $arFilter_offers, false, array("nTopCount" => 1000000), $arSelect_offers);
+while($ob_offers = $res_offers->GetNextElement())
+{
+	$arFields_offers = $ob_offers->GetFields();
+	$arFields_offers['PROPERTIES'] = $ob_offers->GetProperties();
+	$offer = $arFields_offers;
+
+
+	$parent = $offer['PROPERTY_CML2_LINK_VALUE'];
+	if($offer['PROPERTY_AVAILABLE_VALUE'] == 'В наличии'){$available = 'true';} else {$available = 'false';}
+
+	$arDiscounts = CCatalogDiscount::GetDiscountByProduct(
+		$offer['ID'],
+		2,
+		"N",
+		$offer['CATALOG_GROUP_ID_1']
+	);
+	$discountPrice = CCatalogProduct::CountPriceWithDiscount(
+		$offer["CATALOG_PRICE_1"],
+		$offer["CATALOG_CURRENCY_1"],
+		$arDiscounts
+	);
+	if(!empty($offer['ID']) && !empty($catalog[$parent]['DETAIL_PAGE_URL']) && !empty($discountPrice) && !empty($catalog[$parent]['IBLOCK_SECTION_ID']) && !empty($catalog[$parent]['NAME'])){
+		$string .= '<offer id="'.$offer['ID'].'" available="'.$available.'">';
+			$string .= '<url>http://belmebru.ru'.$catalog[$parent]['DETAIL_PAGE_URL'].'?prod='.$offer['ID'].'</url>';
+			$string .= '<price>'.$discountPrice.'</price>';
+			$string .= '<currencyId>RUR</currencyId>';
+			$string .= '<categoryId>'.$catalog[$parent]['IBLOCK_SECTION_ID'].'</categoryId>';
+			$string .= '<name>'.$catalog[$parent]['NAME'].'</name>';
+
+			if(!empty($catalog[$parent]['PROPERTY_YA_SECT_VALUE'])){
+				$string .= '<market_category>'.$catalog[$parent]['PROPERTY_YA_SECT_VALUE'].'</market_category>';
+			}
+			if(!empty($catalog[$parent]['PREVIEW_PICTURE'])){
+				$src = CFile::GetPath($catalog[$parent]['PREVIEW_PICTURE']);
+				$string .= '<picture>http://belmebru.ru'.$src.'</picture>';
+				unset($src);
+			}
+			$string .= '<pickup>true</pickup>';
+			$string .= '<delivery>true</delivery>';
+			if(!empty($catalog[$parent]['PROPERTY_YA_DELIVERY_COST_VALUE'])){
+				$string .= '<local_delivery_cost>'.$catalog[$parent]['PROPERTY_YA_DELIVERY_COST_VALUE'].'</local_delivery_cost>';
+			}
+			if(!empty($catalog[$parent]['PROPERTY_MANUFACTURER_VALUE'])){
+				$string .= '<vendor>'.$catalog[$parent]['PROPERTY_MANUFACTURER_VALUE'].'</vendor>';
+			}
+			if(!empty($catalog[$parent]['DETAIL_TEXT']) && strip_tags($catalog[$parent]['DETAIL_TEXT']) == $catalog[$parent]['DETAIL_TEXT']){
+				//$string .= '<description>'.$catalog[$parent]['DETAIL_TEXT'].'</description>';
+			}
+			if(!empty($catalog[$parent]['PROPERTY_WARRANTY_VALUE'])){
+				$string .= '<manufacturer_warranty>true</manufacturer_warranty>';
+			}
+			if(!empty($catalog[$parent]['PROPERTY_COUNTRY_VALUE'])){
+				$string .= '<country_of_origin>'.$catalog[$parent]['PROPERTY_COUNTRY_VALUE'].'</country_of_origin>';
+			}
+			foreach($offer_params as $param_code){
+				if(!empty($offer['PROPERTIES'][$param_code]['VALUE'])){
+					$string .= '<param name="'.$offer['PROPERTIES'][$param_code]['NAME'].'">'.$offer['PROPERTIES'][$param_code]['VALUE'].'</param>';
+				}
+			}
+			foreach($catalog_params as $param_code){
+				if(!empty($catalog[$parent]['PROPERTIES'][$param_code]['VALUE'])){
+					$string .= '<param name="'.$catalog[$parent]['PROPERTIES'][$param_code]['NAME'].'">'.$catalog[$parent]['PROPERTIES'][$param_code]['VALUE'].'</param>';
+				}
+			}
+		$string .= '</offer>';
+	}
+	file_put_contents($file, $string, FILE_APPEND);
+	unset($string);
+}
+
+$string = '</offers>';
+$string .= '</shop>
+</yml_catalog>';
+file_put_contents($file, $string, FILE_APPEND);
+
+$time = microtime(true) - $start;
+printf('Скрипт выполнялся %.4F сек.', $time);
+?>

@@ -1,0 +1,95 @@
+<?
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+require("arr.php");
+$APPLICATION->SetTitle("test");
+?>
+
+
+<?
+$arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL");
+$arFilter = Array("IBLOCK_ID"=>1, "ACTIVE"=>"Y");
+$res = CIBlockElement::GetList(Array("NAME" => "ASC"), $arFilter, false, false, $arSelect);
+while($ob = $res->GetNextElement())
+{
+	$arFields = $ob->GetFields();
+	$el['NAME'] = $arFields['NAME'];
+	$el['CODE'] = $arFields['DETAIL_PAGE_URL'];
+
+	$el['NAME'] = strtolower($el['NAME']);
+	$el['NAME'] = str_replace(' ', '', $el['NAME']);
+	$el['NAME'] = str_replace('&quot;', '', $el['NAME']);
+	$el['NAME'] = str_replace('(', '', $el['NAME']);
+	$el['NAME'] = str_replace(')', '', $el['NAME']);
+	$el['NAME'] = str_replace('-', '', $el['NAME']);
+	$el['NAME'] = str_replace('/', '', $el['NAME']);
+	$el['NAME'] = str_replace('.', '', $el['NAME']);
+	$el['NAME'] = str_replace(',', '', $el['NAME']);
+	$el['NAME'] = str_replace(';', '', $el['NAME']);
+	$el['NAME'] = str_replace('№', '', $el['NAME']);
+	$el['NAME'] = str_replace('+', '', $el['NAME']);
+
+	$new_arr_name[] = $el['NAME'];
+
+	//$new_arr_name[] = str_replace('"', '', str_replace(' ', '', strtolower($el['NAME'])));
+	//$new_arr_name2[] = str_replace(' ', '', strtolower($el['NAME']));
+	$new_arr_code[] = $el['CODE'];
+	$new_arr[] = $el;
+}
+
+foreach($old_arr as $el){
+	$key = '';
+	$find_name = str_replace(' ', '', str_replace('"', '', strtolower($el['NAME'])));
+	$find_name = str_replace('(', '', $find_name);
+	$find_name = str_replace(')', '', $find_name);
+	$find_name = str_replace('-', '', $find_name);
+	$find_name = str_replace('/', '', $find_name);
+	$find_name = str_replace('.', '', $find_name);
+	$find_name = str_replace(',', '', $find_name);
+	$find_name = str_replace(';', '', $find_name);
+	$find_name = str_replace('№', '', $find_name);
+	$find_name = str_replace('+', '', $find_name);
+
+	$key = array_search($find_name, $new_arr_name);
+	if(!empty($key)){
+		$r['FROM'] = $el['CODE'];
+		$r['TO'] = $new_arr_code[$key];
+		$redirect[] = $r;
+		unset($new_arr_name[$key]);
+	} else {
+		$not_found[] = $find_name;
+	}
+}
+foreach($not_found as $find){
+	if(in_array($find, $new_arr_name)){
+		$lvl2[$find] = 'Y';
+	}
+}
+
+/*
+$test = str_replace(' ', '', strtolower($old_arr[0]['NAME']));
+echo '-------<br>';
+echo $new_arr_name[0].'<br>';
+echo $test.'<br>';
+echo '-------<br>';
+
+if($new_arr_name[0] == $test){
+	echo $new_arr_name[0].' = '.$test;
+} else {
+	echo $new_arr_name[0].' != '.$test;
+}
+*/
+
+foreach($redirect as $r){
+	echo 'Redirect 301 '.$r['FROM'].'&nbsp;'.$r['TO'].'<br>';
+}
+
+
+?>
+
+<?//echo '<pre style="display:block;">'; print_r($old_arr); echo '</pre>';?>
+<?//echo '<pre style="display:block;">'; print_r($new_arr_name); echo '</pre>';?>
+<?//echo '<pre style="display:block;">'; print_r($new_arr_name2); echo '</pre>';?>
+<?//echo '<pre style="display:block;">'; print_r($redirect); echo '</pre>';?>
+<?//echo '<pre style="display:block;">'; print_r($not_found); echo '</pre>';?>
+<?//echo '<pre style="display:block;">'; print_r($lvl2); echo '</pre>';?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
