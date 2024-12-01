@@ -58,11 +58,7 @@ if ($current_url == '/' || $current_url == '/index.php') {
 
 	</div>
 
-	<?
-		} else {
-			echo "Страница каталога и другие страницы";
-		}
-		?>
+	<?}?>
         </main>
         <footer class="footer">
             <div class="footer-top">
