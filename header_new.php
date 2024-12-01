@@ -1,6 +1,14 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
+// Подключаем модуль авторизации
+if (!CModule::IncludeModule("main")) {
+    die("Модуль авторизации не подключен");
+}
+
+// Теперь можно использовать объект $USER
+global $USER;
+
 $subject = $_SERVER["REQUEST_URI"];
 $pattern = '/\/\/+/';
 $countReplace = 0;

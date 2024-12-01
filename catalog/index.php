@@ -1,4 +1,4 @@
-<? require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header_new.php");
+<? require($_SERVER["DOCUMENT_ROOT"]."/local/templates/new_mobile_belmebru/header_new.php");
 $APPLICATION->SetPageProperty("keywords", "Буфеты для для кухни и столовой | Купить в магазине &quot;Белорусская мебель&quot; буфет в Москве");
 $APPLICATION->SetPageProperty("title", "Каталог белорусской мебели с ценами – заходите и выбирайте!");
 $APPLICATION->SetPageProperty("description", "Нужна мебель из Беларуси? Интернет-магазин с полным каталогом белорусской мебели с ценами и фото. Гарантия - от 6 месяцев до 1 года. Доставка по Москве и России. Телефон: 8 (800) 555-10-32");
@@ -163,4 +163,4 @@ $APPLICATION->SetTitle("Каталог белорусской мебели с ц
                 "CACHE_TYPE" => "N",  // Отключить кеш
                 "CACHE_TIME" => 0,    // Время жизни кеша (0 = без кеша)
 	)
-);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);?><?require($_SERVER["DOCUMENT_ROOT"]."/local/templates/new_mobile_belmebru/footer_new.php");?>

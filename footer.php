@@ -1,58 +1,68 @@
  <? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die(); ?>
 
- <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section.list", 
-	"brands_mobile", 
-	array(
-		"IBLOCK_TYPE" => "catalog",
-		"IBLOCK_ID" => "8",
-		"SECTION_ID" => "",
-		"SECTION_CODE" => "",
-		"COUNT_ELEMENTS" => "N",
-		"TOP_DEPTH" => "1",
-		"SECTION_FIELDS" => array(
-			0 => "",
-			1 => "",
+<?
+$current_url = $_SERVER['REQUEST_URI'];
+if ($current_url == '/' || $current_url == '/index.php') {
+	$APPLICATION->IncludeComponent(
+		"bitrix:catalog.section.list", 
+		"brands_mobile", 
+		array(
+			"IBLOCK_TYPE" => "catalog",
+			"IBLOCK_ID" => "8",
+			"SECTION_ID" => "",
+			"SECTION_CODE" => "",
+			"COUNT_ELEMENTS" => "N",
+			"TOP_DEPTH" => "1",
+			"SECTION_FIELDS" => array(
+				0 => "",
+				1 => "",
+			),
+			"SECTION_USER_FIELDS" => array(
+				0 => "",
+				1 => "",
+			),
+			"SECTION_URL" => "",
+			"CACHE_TYPE" => "A",
+			"CACHE_TIME" => "36000000",
+			"CACHE_GROUPS" => "N",
+			"ADD_SECTIONS_CHAIN" => "N",
+			"VIEW_MODE" => "LINE",
+			"SHOW_PARENT_NAME" => "Y",
+			"COMPONENT_TEMPLATE" => "brands",
+			"COUNT_ELEMENTS_FILTER" => "CNT_ACTIVE",
+			"ADDITIONAL_COUNT_ELEMENTS_FILTER" => "additionalCountFilter",
+			"HIDE_SECTIONS_WITH_ZERO_COUNT_ELEMENTS" => "N",
+			"FILTER_NAME" => "sectionsFilter",
+			"CACHE_FILTER" => "N"
 		),
-		"SECTION_USER_FIELDS" => array(
-			0 => "",
-			1 => "",
-		),
-		"SECTION_URL" => "",
-		"CACHE_TYPE" => "A",
-		"CACHE_TIME" => "36000000",
-		"CACHE_GROUPS" => "N",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"VIEW_MODE" => "LINE",
-		"SHOW_PARENT_NAME" => "Y",
-		"COMPONENT_TEMPLATE" => "brands",
-		"COUNT_ELEMENTS_FILTER" => "CNT_ACTIVE",
-		"ADDITIONAL_COUNT_ELEMENTS_FILTER" => "additionalCountFilter",
-		"HIDE_SECTIONS_WITH_ZERO_COUNT_ELEMENTS" => "N",
-		"FILTER_NAME" => "sectionsFilter",
-		"CACHE_FILTER" => "N"
-	),
-	false
-);?>
-                </div>
-            </div>
-                
-            <div class="feedback m-section">
-                <div class="container">
-                    <div class="h1 text-center">
-                        Давайте общаться!
-                    </div>
-                    <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
-											"AREA_FILE_SHOW" => "file",
-											"PATH" => "/includes/social_mobile.php",
-											"EDIT_TEMPLATE" => ""
-											),
-											false
-										);?>
-                </div>
+		false
+	);
 
-            </div>
+	?>
+	</div>
+	</div>
+		
+	<div class="feedback m-section">
+		<div class="container">
+			<div class="h1 text-center">
+				Давайте общаться!
+			</div>
+			<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
+									"AREA_FILE_SHOW" => "file",
+									"PATH" => "/includes/social_mobile.php",
+									"EDIT_TEMPLATE" => ""
+									),
+									false
+								);?>
+		</div>
 
+	</div>
+
+	<?
+		} else {
+			echo "Страница каталога и другие страницы";
+		}
+		?>
         </main>
         <footer class="footer">
             <div class="footer-top">
@@ -61,31 +71,31 @@
                         <a href="" class="footer__logo">
                             <img src="<?= SITE_TEMPLATE_PATH ?>/img/logo2.png" alt="">
                         </a>
-<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
-	"AREA_FILE_SHOW" => "file",
-	"PATH" => "/includes/header_contacts_mobile.php",
-	"EDIT_TEMPLATE" => ""
-	),
-	false
-);?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:menu", 
-	"other_mobile", 
-	array(
-		"ROOT_MENU_TYPE" => "other",
-		"MENU_CACHE_TYPE" => "A",
-		"MENU_CACHE_TIME" => "3600",
-		"MENU_CACHE_USE_GROUPS" => "Y",
-		"MENU_CACHE_GET_VARS" => array(
-		),
-		"MAX_LEVEL" => "1",
-		"CHILD_MENU_TYPE" => "left",
-		"USE_EXT" => "N",
-		"DELAY" => "N",
-		"ALLOW_MULTI_SELECT" => "N"
-	),
-	false
-);?>
+			<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
+				"AREA_FILE_SHOW" => "file",
+				"PATH" => "/includes/header_contacts_mobile.php",
+				"EDIT_TEMPLATE" => ""
+				),
+				false
+			);?>
+			<?$APPLICATION->IncludeComponent(
+				"bitrix:menu", 
+				"other_mobile", 
+				array(
+					"ROOT_MENU_TYPE" => "other",
+					"MENU_CACHE_TYPE" => "A",
+					"MENU_CACHE_TIME" => "3600",
+					"MENU_CACHE_USE_GROUPS" => "Y",
+					"MENU_CACHE_GET_VARS" => array(
+					),
+					"MAX_LEVEL" => "1",
+					"CHILD_MENU_TYPE" => "left",
+					"USE_EXT" => "N",
+					"DELAY" => "N",
+					"ALLOW_MULTI_SELECT" => "N"
+				),
+				false
+			);?>
 
                     </div>
                 </div>
@@ -97,24 +107,24 @@
                         <div class="footer-menu">
                             <div class="footer-nav">
                                 <?$APPLICATION->IncludeComponent(
-	"bitrix:menu", 
-	"bottom_menu_mob", 
-	array(
-		"ROOT_MENU_TYPE" => "top",
-		"MENU_CACHE_TYPE" => "A",
-		"MENU_CACHE_TIME" => "3600",
-		"MENU_CACHE_USE_GROUPS" => "Y",
-		"MENU_CACHE_GET_VARS" => array(
-		),
-		"MAX_LEVEL" => "1",
-		"CHILD_MENU_TYPE" => "left",
-		"USE_EXT" => "N",
-		"DELAY" => "N",
-		"ALLOW_MULTI_SELECT" => "N",
-		"COMPONENT_TEMPLATE" => "bottom_menu_mob"
-	),
-	false
-);?>
+								"bitrix:menu", 
+								"bottom_menu_mob", 
+								array(
+									"ROOT_MENU_TYPE" => "top",
+									"MENU_CACHE_TYPE" => "A",
+									"MENU_CACHE_TIME" => "3600",
+									"MENU_CACHE_USE_GROUPS" => "Y",
+									"MENU_CACHE_GET_VARS" => array(
+									),
+									"MAX_LEVEL" => "1",
+									"CHILD_MENU_TYPE" => "left",
+									"USE_EXT" => "N",
+									"DELAY" => "N",
+									"ALLOW_MULTI_SELECT" => "N",
+									"COMPONENT_TEMPLATE" => "bottom_menu_mob"
+								),
+								false
+							);?>
                             </div>
                             <div class="footer-nav _type2">
 
@@ -141,23 +151,24 @@
                             </div>
                             <div class="footer-nav _type3">
                                 <?$APPLICATION->IncludeComponent(
-																	"bitrix:menu", 
-																	"bottom_menu3", 
-																	array(
-																		"ROOT_MENU_TYPE" => "urist",
-																		"MENU_CACHE_TYPE" => "N",
-																		"MENU_CACHE_TIME" => "3600",
-																		"MENU_CACHE_USE_GROUPS" => "Y",
-																		"MENU_CACHE_GET_VARS" => array(
-																		),
-																		"MAX_LEVEL" => "1",
-																		"CHILD_MENU_TYPE" => "left",
-																		"USE_EXT" => "N",
-																		"DELAY" => "N",
-																		"ALLOW_MULTI_SELECT" => "N"
-																	),
-																	false
-																);?>
+									"bitrix:menu", 
+									"bottom_menu_mob3", 
+									array(
+										"ROOT_MENU_TYPE" => "urist",
+										"MENU_CACHE_TYPE" => "N",
+										"MENU_CACHE_TIME" => "3600",
+										"MENU_CACHE_USE_GROUPS" => "Y",
+										"MENU_CACHE_GET_VARS" => array(
+										),
+										"MAX_LEVEL" => "1",
+										"CHILD_MENU_TYPE" => "left",
+										"USE_EXT" => "N",
+										"DELAY" => "N",
+										"ALLOW_MULTI_SELECT" => "N",
+										"COMPONENT_TEMPLATE" => "bottom_menu_mob3"
+									),
+									false
+								);?>
                             </div>
                         </div>
                     </div>
@@ -185,7 +196,6 @@
                     </div>
                 </div>
             </div>
-
         </footer>
     </div>
 
@@ -228,7 +238,5 @@
 		})(document, window);
 		</script>
 		<!-- /Hoversignal -->
-
 </body>
-
 </html>
