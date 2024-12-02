@@ -18,6 +18,16 @@ if (!empty($arResult['SECTIONS'])) {
 }
 ?>
 
+<style>
+.product-card__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3; 
+    max-height: 120px;
+    text-overflow: ellipsis;
+}
+</style>
 <?php if (!empty($arResult['SECTIONS'])): ?>
 
 <div class="page-top">
@@ -52,28 +62,34 @@ if (!empty($arResult['SECTIONS'])) {
                                                 <div class="product-card__badge">
                                                     <img src="<?= SITE_TEMPLATE_PATH ?>/img/new.png" alt="Новинка">
                                                 </div>
-                                            <?php endif; ?>
+                                            <? else : ?>
+                                                <div class="product-card__badge"></div>
+                                            <? endif; ?>
 
                                             <?php if ($arItem['PRICES']['RUB']['DISCOUNT_DIFF_PERCENT'] > 0): ?>
                                                 <div class="product-card__badge">
                                                     <img src="<?= SITE_TEMPLATE_PATH ?>/img/sale.png" alt="Скидка">
                                                 </div>
-                                            <?php endif; ?>
+                                            <? else : ?>
+                                                <div class="product-card__badge"></div>
+                                            <? endif; ?>
 
                                             <?php if (!empty($arItem['PROPERTIES']['PR100']['VALUE'])): ?>
                                                 <div class="product-card__badge">
                                                     <img src="<?= SITE_TEMPLATE_PATH ?>/img/eco.png" alt="Эко">
-                                                </div>
-                                            <?php endif; ?>
+                                            </div>
+                                                <? else : ?>
+                                                <div class="product-card__badge"></div>
+                                            <? endif; ?>
                                         </div>
 
-                                        <a href="<?= htmlspecialchars($arItem['DETAIL_PAGE_URL']) ?>" class="product-card__img">
-                                            <img src="<?= htmlspecialchars($arItem['PREVIEW_PICTURE_SRC']) ?>" alt="<?= htmlspecialchars($arItem['NAME']) ?>">
+                                        <a href="<?=$arItem['DETAIL_PAGE_URL'] ?>" class="product-card__img">
+                                            <img src="<?=$arItem['PREVIEW_PICTURE_SRC'] ?>" alt="">
                                         </a>
 
-                                        <div class="product-card__title" style="min-height: 130px;">
-                                            <a href="<?= htmlspecialchars($arItem['DETAIL_PAGE_URL']) ?>" class="text21 text14-mob">
-                                                <?= htmlspecialchars($arItem['NAME']) ?>
+                                        <div class="product-card__title">
+                                            <a href="<?=$arItem['DETAIL_PAGE_URL'] ?>" class="text21 text14-mob">
+                                                <?= $arItem['NAME'] ?>
                                             </a>
                                         </div>
 
@@ -85,7 +101,7 @@ if (!empty($arResult['SECTIONS'])) {
                                                 <div class="product-card__price2">
                                                     <?= $arItem['PRICES']['RUB']['PRINT_VALUE_NOVAT'] ?>
                                                 </div>
-                                            <?php endif; ?>
+                                            <? endif; ?>
                                         </div>
                                         <a style="
                                             display: flex; 

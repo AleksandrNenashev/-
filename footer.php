@@ -64,7 +64,7 @@ if ($current_url == '/' || $current_url == '/index.php') {
             <div class="footer-top">
                 <div class="container _type2">
                     <div class="footer-top__inner">
-                        <a href="" class="footer__logo">
+                        <a href="/" class="footer__logo">
                             <img src="<?= SITE_TEMPLATE_PATH ?>/img/logo2.png" alt="">
                         </a>
 			<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(

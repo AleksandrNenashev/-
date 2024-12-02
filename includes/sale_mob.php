@@ -42,7 +42,7 @@
                                         </div>
 
 										<a href="<?=$item['URL']?>" class="product-card__img"><img src="<?=$item['IMAGE']?>" alt="<?=$item['NAME']?>"></a>
-                                        <div style="min-height: 130px;" class="product-card__title"> 
+                                        <div style="min-height: 160px;" class="product-card__title"> 
                                             <a href="<?=$item['URL']?>" class="text21 text14-mob"><?=$item['NAME']?></a>
                                         </div>
                                         <div class="product-card__prices">
