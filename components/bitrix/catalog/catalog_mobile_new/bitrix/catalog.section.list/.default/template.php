@@ -19,6 +19,16 @@ if (!empty($arResult['SECTIONS'])) {
 ?>
 
 <?php if (!empty($arResult['SECTIONS'])): ?>
+
+<div class="page-top">
+    <div class="container _type2">
+        <div class="breadcrumbs">
+            <a href="/">Интернет-магазин</a>
+            <a href="/catalog/" title="Каталог">Каталог</a>
+        </div>
+    </div>
+</div>
+
 <div class="catalog m-section">
     <div class="container _type2">
         <div class="h2 text-center">
@@ -34,22 +44,25 @@ if (!empty($arResult['SECTIONS'])) {
                             <?php foreach ($arSection['ELEMENTS'] as $arItem): ?>
                                 <div class="swiper-slide">
                                     <div class="product-card">
+                                        <?if($arItem['PROPERTIES']['PRICE_LOWER']['VALUE'] == 'да'){?>
+                                            <img src="<?= SITE_TEMPLATE_PATH ?>/img/req.png" alt="Возможно изготовление по вашим размерам." class="product-card__request">  
+                                        <?}?>
                                         <div class="product-card__badges">
                                             <?php if ($arItem['PROPERTIES']['NEWPRODUCT']['VALUE'] == 'Да'): ?>
                                                 <div class="product-card__badge">
-                                                    <img src="/upload/img/badge-new.png" alt="Новинка">
+                                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/new.png" alt="Новинка">
                                                 </div>
                                             <?php endif; ?>
 
                                             <?php if ($arItem['PRICES']['RUB']['DISCOUNT_DIFF_PERCENT'] > 0): ?>
                                                 <div class="product-card__badge">
-                                                    <img src="/upload/img/badge-discount.png" alt="Скидка">
+                                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/sale.png" alt="Скидка">
                                                 </div>
                                             <?php endif; ?>
 
                                             <?php if (!empty($arItem['PROPERTIES']['PR100']['VALUE'])): ?>
                                                 <div class="product-card__badge">
-                                                    <img src="/upload/img/badge-eco.png" alt="Эко">
+                                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/eco.png" alt="Эко">
                                                 </div>
                                             <?php endif; ?>
                                         </div>
@@ -58,7 +71,7 @@ if (!empty($arResult['SECTIONS'])) {
                                             <img src="<?= htmlspecialchars($arItem['PREVIEW_PICTURE_SRC']) ?>" alt="<?= htmlspecialchars($arItem['NAME']) ?>">
                                         </a>
 
-                                        <div class="product-card__title">
+                                        <div class="product-card__title" style="min-height: 130px;">
                                             <a href="<?= htmlspecialchars($arItem['DETAIL_PAGE_URL']) ?>" class="text21 text14-mob">
                                                 <?= htmlspecialchars($arItem['NAME']) ?>
                                             </a>
@@ -74,6 +87,24 @@ if (!empty($arResult['SECTIONS'])) {
                                                 </div>
                                             <?php endif; ?>
                                         </div>
+                                        <a style="
+                                            display: flex; 
+                                            -webkit-box-align: center; 
+                                            -ms-flex-align: center; 
+                                            align-items: center; 
+                                            -webkit-box-pack: center; 
+                                            -ms-flex-pack: center; 
+                                            justify-content: center; 
+                                            padding: 0 1.75em; 
+                                            height: 2.625em; 
+                                            background-color: #f48729; 
+                                            color: #fefefe; 
+                                            font-weight: 500; 
+                                            text-transform: uppercase; 
+                                            font-family: 'PF Agora Sans Pro', sans-serif; 
+                                            border-radius: .4375em; 
+                                            margin-top: auto;
+                                            " class="addtobasket btn btn_green" href="#" id="ajaxaction=add&ajaxaddid=<?=$item['ID']?>">КУПИТЬ</a>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
