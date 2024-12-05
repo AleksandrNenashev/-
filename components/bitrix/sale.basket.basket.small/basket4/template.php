@@ -24,6 +24,14 @@ foreach($arResult['ITEMS'] as &$arItem){
 	$sum = $sum + ($arItem['PRICE']*$arItem['QUANTITY']);
 	$quantity = $quantity + $arItem['QUANTITY'];
 }?>
+
+
+<div class="left_basket_small" >
+	<a href="/personal/cart/" class="left_basket_small_cnt" ><?=$quantity?></a>
+	<div class="left_basket_small_dob" >Добавление товара</div>
+</div>
+
+
 <style>
 .header-action__btn {
     position: relative;
@@ -48,11 +56,14 @@ foreach($arResult['ITEMS'] as &$arItem){
 }
 </style>	
 
-<a href="<?=$arParams["PATH_TO_BASKET"]?>" class="header-action__btn">
+<a href="<?=$arParams["PATH_TO_BASKET"]?>" class="header-action__btn left_basket_small">
     <img src="<?= SITE_TEMPLATE_PATH ?>/img/cart.svg" alt="">
-	<span class="cart-counter">
+	<span class="cart-counter left_basket_small">
 	<?=$quantity?>
 	</span>
 </a>
+
+
+
 
 

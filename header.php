@@ -68,6 +68,7 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
     <meta name="keywords" content="">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/css/libs.min.css">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/css/style.min.css">
+    <script src="<?= SITE_TEMPLATE_PATH ?>/js/ajax.js"></script>
     <title><? $APPLICATION->ShowTitle() ?></title>
 	<? $APPLICATION->ShowHead(); ?>
 </head>
