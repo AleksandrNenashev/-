@@ -25,6 +25,7 @@ if (!empty($arResult['SECTIONS'])) {
     overflow: hidden;
     -webkit-line-clamp: 3; 
     max-height: 120px;
+    min-height: 60px;
     text-overflow: ellipsis;
 }
 </style>
@@ -47,7 +48,7 @@ if (!empty($arResult['SECTIONS'])) {
 
         <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
             <div class="catalog-group">
-                <div class="line-title"><?= htmlspecialchars($arSection['NAME']) ?></div>
+                <div class="line-title"><a href="<?=$arSection["SECTION_PAGE_URL"];?>"><?=$arSection['NAME'] ?></a></div>
                 <div class="sales-slider slider">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
@@ -93,7 +94,7 @@ if (!empty($arResult['SECTIONS'])) {
                                             </a>
                                         </div>
 
-                                        <div class="product-card__prices">
+                                        <div class="product-card__prices" style="min-height: 45px;">
                                             <div class="product-card__price">
                                                 <?= $arItem['PRICES']['RUB']['PRINT_DISCOUNT_VALUE'] ?>
                                             </div>

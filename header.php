@@ -392,130 +392,73 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
 							);
 
                             ?>
-                            <div class="offer2 m-section _tabs-parent">
-                                            <div class="container">
-                                                <div class="h2 text-center">
-                                                    Спецпредложения
-                                                </div>
-                                                <div class="offer2__tabs">
-                                                    <div class="offer2__tab _tab _active" data-tab="_tab1">
-                                                        <span>Массив дуба</span>
-                                                    </div>
-                                                    <div class="offer2__tab _tab" data-tab="_tab2">
-                                                        <span>массив сосны</span>
-                                                    </div>
-                                                    <div class="offer2__tab _tab" data-tab="_tab3">
-                                                        <span>супер цена</span>
-                                                    </div>
-                                                    <div class="offer2__tab _tab" data-tab="_tab4">
-                                                        <span>мебель по вашим размерам</span>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-content _tab1 _active">
-                                                    <div class="offer-slider slider">
-                                                        <div class="swiper-container">
-                                                            <div class="swiper-wrapper">
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer4.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer5.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer5.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="swiper-pagination"></div>
-                                                    </div>
 
-                                                </div>
-
-                                                <div class="tab-content _tab2">
-                                                    <div class="offer-slider slider">
-                                                        <div class="swiper-container">
-                                                            <div class="swiper-wrapper">
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer4.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer4.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer4.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="swiper-pagination"></div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="tab-content _tab3">
-                                                    <div class="offer-slider slider">
-                                                        <div class="swiper-container">
-                                                            <div class="swiper-wrapper">
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer5.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer5.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer5.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="swiper-pagination"></div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="tab-content _tab4">
-                                                    <div class="offer-slider slider">
-                                                        <div class="swiper-container">
-                                                            <div class="swiper-wrapper">
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer4.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer5.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <a href="" class="offer-slider__img">
-                                                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/offer5.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="swiper-pagination"></div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                            </div>
+                            <?$APPLICATION->IncludeComponent(
+	"bitrix:news.list", 
+	"spec_offer_mob", 
+	array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"ADD_SECTIONS_CHAIN" => "N",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "N",
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "36000000",
+		"CACHE_TYPE" => "A",
+		"CHECK_DATES" => "Y",
+		"DETAIL_URL" => "",
+		"DISPLAY_BOTTOM_PAGER" => "N",
+		"DISPLAY_DATE" => "N",
+		"DISPLAY_NAME" => "Y",
+		"DISPLAY_PICTURE" => "Y",
+		"DISPLAY_PREVIEW_TEXT" => "Y",
+		"DISPLAY_TOP_PAGER" => "N",
+		"FIELD_CODE" => array(
+			0 => "",
+			1 => "",
+		),
+		"FILTER_NAME" => "",
+		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
+		"IBLOCK_ID" => "",
+		"IBLOCK_TYPE" => "bitrix_processes",
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"MESSAGE_404" => "",
+		"NEWS_COUNT" => "4",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_TEMPLATE" => ".default",
+		"PAGER_TITLE" => "Спецпредложения",
+		"PARENT_SECTION" => "",
+		"PARENT_SECTION_CODE" => "",
+		"PREVIEW_TRUNCATE_LEN" => "",
+		"PROPERTY_CODE" => array(
+			0 => "",
+			1 => "",
+		),
+		"SET_BROWSER_TITLE" => "N",
+		"SET_LAST_MODIFIED" => "N",
+		"SET_META_DESCRIPTION" => "N",
+		"SET_META_KEYWORDS" => "N",
+		"SET_STATUS_404" => "N",
+		"SET_TITLE" => "N",
+		"SHOW_404" => "N",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC",
+		"STRICT_SECTION_CHECK" => "N",
+		"COMPONENT_TEMPLATE" => "spec_offer_mob"
+	),
+	false
+);?>
+                            
                             <?
                             
                             $APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
