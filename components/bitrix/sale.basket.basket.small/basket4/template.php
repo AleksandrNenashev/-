@@ -26,12 +26,6 @@ foreach($arResult['ITEMS'] as &$arItem){
 }?>
 
 
-<div class="left_basket_small" >
-	<a href="/personal/cart/" class="left_basket_small_cnt" ><?=$quantity?></a>
-	<div class="left_basket_small_dob" >Добавление товара</div>
-</div>
-
-
 <style>
 .header-action__btn {
     position: relative;

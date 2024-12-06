@@ -1,7 +1,19 @@
 <?php
             $savedData = COption::GetOptionString("main", "featured_items");
             $featuredItems = unserialize($savedData);
-
+?>
+<style>
+.product-card__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3; 
+    max-height: 120px;
+    min-height: 60px;
+    text-overflow: ellipsis;
+}
+</style>
+<?
             if (!empty($featuredItems)): ?>
             <div class="sales m-section">
                 <div class="container _type2">
@@ -16,36 +28,44 @@
 				                ?>
                                 <div class="swiper-slide">
                                     <div class="product-card">
-
+                                    <?if($item['PROPERTIES']['PRICE_LOWER']['VALUE'] == 'да'){?>
+                                            <img src="<?= SITE_TEMPLATE_PATH ?>/img/req.png" alt="Возможно изготовление по вашим размерам." class="product-card__request">  
+                                        <?}?>
                                         <div class="product-card__badges">
 
                                         <!-- Значок "NEW" -->
-                                        <?if($item['PROPERTIES']['NEWPRODUCT']['VALUE'] == 'Да'):?>
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/new.png" alt="Новинка">
-                                            </div>
-                                        <?endif;?>
+                                        <?php if ($item['PROPERTIES']['NEWPRODUCT']['VALUE'] == 'Да'): ?>
+                                                <div class="product-card__badge">
+                                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/new.png" alt="Новинка">
+                                                </div>
+                                        <? else : ?>
+                                                <div class="product-card__badge"></div>
+                                        <? endif; ?>
 
                                        <!-- Значок скидки -->
-                                        <?if($item['DISCOUNT_PERCENT'] > 0):?>
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/sale.png" alt="Скидка">
-                                            </div>
-                                        <?endif;?>
+                                       <?php if ($item['DISCOUNT_PERCENT'] > 0): ?>
+                                                <div class="product-card__badge">
+                                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/sale.png" alt="Скидка">
+                                                </div>
+                                        <? else : ?>
+                                                <div class="product-card__badge"></div>
+                                        <? endif; ?>
 
                                         <!-- Значок экологичности -->
-                                        <?if(!empty($item['PROPERTIES']['PR100']['VALUE'])):?>
-                                            <div class="product-card__badge">
-                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/eco.png" alt="Эко">
+                                        <?php if (!empty($item['PROPERTIES']['PR100']['VALUE'])): ?>
+                                                <div class="product-card__badge">
+                                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/eco.png" alt="Эко">
                                             </div>
-                                        <?endif;?>   
+                                        <? else : ?>
+                                                <div class="product-card__badge"></div>
+                                        <? endif; ?>   
                                         </div>
 
-										<a href="<?=$item['URL']?>" class="product-card__img"><img src="<?=$item['IMAGE']?>" alt="<?=$item['NAME']?>"></a>
-                                        <div style="min-height: 160px;" class="product-card__title"> 
+										<a href="<?=$item['URL']?>" class="product-card__img"><img src="<?=$item['IMAGE']?>" alt=""></a>
+                                        <div class="product-card__title"> 
                                             <a href="<?=$item['URL']?>" class="text21 text14-mob"><?=$item['NAME']?></a>
                                         </div>
-                                        <div class="product-card__prices">
+                                        <div class="product-card__prices" style="min-height: 45px;">
                                             <div class="product-card__price">
                                             <?=$item['PRICE']?> Р
                                             </div>
