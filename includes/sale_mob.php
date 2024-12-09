@@ -68,7 +68,7 @@
                                         <div class="product-card__prices" style="min-height: 45px;">
                                             <div class="product-card__price">
                                             <?=$item['PRICE']?> Р
-                                            </div>
+                                            </div>                                          
                                             <div class="product-card__price2">
                                             <?if($item['DISCOUNT_PERCENT'] > 0):?>
                                                 <?=$item['OLD_PRICE']?> Р

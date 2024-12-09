@@ -68,7 +68,50 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
     <meta name="keywords" content="">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/css/libs.min.css">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/css/style.min.css">
-    <script src="<?= SITE_TEMPLATE_PATH ?>/js/ajax.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // Привязываем обработчик клика к кнопке addtobasket
+        $('.addtobasket').click(function(e) {
+            e.preventDefault();  // Останавливаем стандартное поведение
+
+            // Получаем параметры из атрибута id
+            var ajaxData = $(this).attr('id');  // Пример: ajaxaction=add&ajaxaddid=123
+
+            console.log('Данные кнопки: ', ajaxData);  // Выводим данные в консоль
+
+            // Разбираем строку параметров
+            var params = new URLSearchParams(ajaxData);
+            var action = params.get('ajaxaction');
+            var addId = params.get('ajaxaddid');
+
+            console.log('action: ', action);  // Действие: add
+            console.log('add id: ', addId);  // ID товара: 123
+
+            // Пример отправки AJAX-запроса, если это необходимо
+            var post = 'action=' + action + '&addId=' + addId;  // Данные для отправки на сервер
+            $.ajax({
+                type: 'POST',
+                url: '/includes/main_ajax_block.php',  // URL для обработки запроса
+                data: post,
+                success: function(response) {
+                    // Выводим ответ в консоль для отладки
+                    console.log('Ответ сервера: ', response);
+                    // Здесь можно обновить содержимое страницы, если нужно
+                    $('.ajax_block_holder').html(response);  // Обновление блока
+                },
+                error: function(xhr, status, error) {
+                    console.log('Ошибка AJAX: ', error);  // Логируем ошибку
+                }
+            });
+
+            return false;
+        });
+    });
+    </script>
+
+
     <link href="/favicon.ico" rel="shortcut icon">
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title><? $APPLICATION->ShowTitle() ?></title>
