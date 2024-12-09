@@ -93,7 +93,7 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
             var post = 'action=' + action + '&addId=' + addId;  // Данные для отправки на сервер
             $.ajax({
                 type: 'POST',
-                url: '/includes/main_ajax_block.php',  // URL для обработки запроса
+                url: '/includes/main_ajax_block_mob.php',  // URL для обработки запроса
                 data: post,
                 success: function(response) {
                     // Выводим ответ в консоль для отладки
