@@ -171,7 +171,7 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
 
         </header>
         <main class="content">
-            
+
                         <?
                         // Получаем текущий URL
                         $current_url = $_SERVER['REQUEST_URI'];
