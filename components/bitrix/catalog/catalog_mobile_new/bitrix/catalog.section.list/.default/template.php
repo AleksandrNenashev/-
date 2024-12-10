@@ -121,7 +121,7 @@ if (!empty($arResult['SECTIONS'])) {
                                             font-family: 'PF Agora Sans Pro', sans-serif; 
                                             border-radius: .4375em; 
                                             margin-top: auto;
-                                            " class="addtobasket btn btn_green" href="#" id="ajaxaction=add&ajaxaddid=<?=$item['ID']?>">КУПИТЬ</a>
+                                            " class="addtobasket btn btn_green" href="#" id="ajaxaction=add&ajaxaddid=<?=$item['ID']?>">КУПИТЬ</a>                                          
                                     </div>
                                 </div>
                             <?php endforeach; ?>

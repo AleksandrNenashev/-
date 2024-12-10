@@ -70,48 +70,6 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/css/style.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-    $(document).ready(function() {
-        // Привязываем обработчик клика к кнопке addtobasket
-        $('.addtobasket').click(function(e) {
-            e.preventDefault();  // Останавливаем стандартное поведение
-
-            // Получаем параметры из атрибута id
-            var ajaxData = $(this).attr('id');  // Пример: ajaxaction=add&ajaxaddid=123
-
-            console.log('Данные кнопки: ', ajaxData);  // Выводим данные в консоль
-
-            // Разбираем строку параметров
-            var params = new URLSearchParams(ajaxData);
-            var action = params.get('ajaxaction');
-            var addId = params.get('ajaxaddid');
-
-            console.log('action: ', action);  // Действие: add
-            console.log('add id: ', addId);  // ID товара: 123
-
-            // Пример отправки AJAX-запроса, если это необходимо
-            var post = 'action=' + action + '&addId=' + addId;  // Данные для отправки на сервер
-            $.ajax({
-                type: 'POST',
-                url: '/includes/main_ajax_block_mob.php',  // URL для обработки запроса
-                data: post,
-                success: function(response) {
-                    // Выводим ответ в консоль для отладки
-                    console.log('Ответ сервера: ', response);
-                    // Здесь можно обновить содержимое страницы, если нужно
-                    $('.ajax_block_holder').html(response);  // Обновление блока
-                },
-                error: function(xhr, status, error) {
-                    console.log('Ошибка AJAX: ', error);  // Логируем ошибку
-                }
-            });
-
-            return false;
-        });
-    });
-    </script>
-
-
     <link href="/favicon.ico" rel="shortcut icon">
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title><? $APPLICATION->ShowTitle() ?></title>
@@ -141,18 +99,28 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
                                 <img src="<?= SITE_TEMPLATE_PATH ?>/img/search.svg" alt="">
                             </a>
                             <?$APPLICATION->IncludeComponent(
-                                "bitrix:sale.basket.basket.small", 
-                                "basket4", 
-                                array(
-                                    "PATH_TO_BASKET" => "/personal/cart/",
-                                    "PATH_TO_ORDER" => "/personal/cart/",
-                                    "SHOW_DELAY" => "N",
-                                    "SHOW_NOTAVAIL" => "N",
-                                    "SHOW_SUBSCRIBE" => "N",
-                                    "COMPONENT_TEMPLATE" => "basket4"
-                                ),
-                                false
-                            );?>
+                            "bitrix:sale.basket.basket.line", 
+                            "top_cart_mob", 
+                            array(
+                                "HIDE_ON_BASKET_PAGES" => "Y",
+                                "PATH_TO_AUTHORIZE" => "",
+                                "PATH_TO_BASKET" => SITE_DIR."personal/cart/",
+                                "PATH_TO_ORDER" => SITE_DIR."personal/order/make/",
+                                "PATH_TO_PERSONAL" => SITE_DIR."personal/",
+                                "PATH_TO_PROFILE" => SITE_DIR."personal/",
+                                "PATH_TO_REGISTER" => SITE_DIR."login/",
+                                "POSITION_FIXED" => "N",
+                                "SHOW_AUTHOR" => "N",
+                                "SHOW_EMPTY_VALUES" => "Y",
+                                "SHOW_NUM_PRODUCTS" => "Y",
+                                "SHOW_PERSONAL_LINK" => "Y",
+                                "SHOW_PRODUCTS" => "N",
+                                "SHOW_REGISTRATION" => "N",
+                                "SHOW_TOTAL_PRICE" => "Y",
+                                "COMPONENT_TEMPLATE" => "top_cart_mob"
+                            ),
+                            false
+                        );?>
                         </div>
                     </div>
 
@@ -438,70 +406,64 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
 							);
 
                             $APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"spec_offer_mob", 
-	array(
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_ADDITIONAL" => "",
-		"AJAX_OPTION_HISTORY" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "N",
-		"CACHE_FILTER" => "N",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "36000000",
-		"CACHE_TYPE" => "A",
-		"CHECK_DATES" => "Y",
-		"DETAIL_URL" => "",
-		"DISPLAY_BOTTOM_PAGER" => "N",
-		"DISPLAY_DATE" => "N",
-		"DISPLAY_NAME" => "Y",
-		"DISPLAY_PICTURE" => "Y",
-		"DISPLAY_PREVIEW_TEXT" => "Y",
-		"DISPLAY_TOP_PAGER" => "N",
-		"FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"FILTER_NAME" => "",
-		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"IBLOCK_ID" => "27",
-		"IBLOCK_TYPE" => "informational",
-		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
-		"INCLUDE_SUBSECTIONS" => "Y",
-		"MESSAGE_404" => "",
-		"NEWS_COUNT" => "4",
-		"PAGER_BASE_LINK_ENABLE" => "N",
-		"PAGER_DESC_NUMBERING" => "N",
-		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N",
-		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => ".default",
-		"PAGER_TITLE" => "Спецпредложения",
-		"PARENT_SECTION" => "",
-		"PARENT_SECTION_CODE" => "",
-		"PREVIEW_TRUNCATE_LEN" => "",
-		"PROPERTY_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"SET_BROWSER_TITLE" => "N",
-		"SET_LAST_MODIFIED" => "N",
-		"SET_META_DESCRIPTION" => "N",
-		"SET_META_KEYWORDS" => "N",
-		"SET_STATUS_404" => "N",
-		"SET_TITLE" => "N",
-		"SHOW_404" => "N",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC",
-		"STRICT_SECTION_CHECK" => "N",
-		"COMPONENT_TEMPLATE" => "spec_offer_mob"
-	),
-	false
-);
+                                "bitrix:photo",
+                                "spec_offers_mob_photo",
+                                Array(
+                                    "AJAX_MODE" => "N",
+                                    "AJAX_OPTION_ADDITIONAL" => "",
+                                    "AJAX_OPTION_HISTORY" => "N",
+                                    "AJAX_OPTION_JUMP" => "N",
+                                    "AJAX_OPTION_STYLE" => "Y",
+                                    "BROWSER_TITLE" => "-",
+                                    "CACHE_FILTER" => "N",
+                                    "CACHE_GROUPS" => "Y",
+                                    "CACHE_TIME" => "36000000",
+                                    "CACHE_TYPE" => "A",
+                                    "COMPONENT_TEMPLATE" => ".default",
+                                    "DETAIL_FIELD_CODE" => array(0=>"",1=>"",),
+                                    "DETAIL_PROPERTY_CODE" => array(0=>"",1=>"",),
+                                    "DISPLAY_BOTTOM_PAGER" => "Y",
+                                    "DISPLAY_TOP_PAGER" => "N",
+                                    "ELEMENT_SORT_FIELD" => "sort",
+                                    "ELEMENT_SORT_ORDER" => "asc",
+                                    "IBLOCK_ID" => "27",
+                                    "IBLOCK_TYPE" => "informational",
+                                    "LIST_BROWSER_TITLE" => "-",
+                                    "LIST_FIELD_CODE" => array(0=>"",1=>"",),
+                                    "LIST_PROPERTY_CODE" => array(0=>"",1=>"",),
+                                    "MESSAGE_404" => "",
+                                    "META_DESCRIPTION" => "-",
+                                    "META_KEYWORDS" => "-",
+                                    "PAGER_BASE_LINK_ENABLE" => "N",
+                                    "PAGER_DESC_NUMBERING" => "N",
+                                    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                                    "PAGER_SHOW_ALL" => "N",
+                                    "PAGER_SHOW_ALWAYS" => "N",
+                                    "PAGER_TEMPLATE" => ".default",
+                                    "PAGER_TITLE" => "Фотографии",
+                                    "SECTION_COUNT" => "20",
+                                    "SECTION_LINE_ELEMENT_COUNT" => "3",
+                                    "SECTION_PAGE_ELEMENT_COUNT" => "20",
+                                    "SECTION_SORT_FIELD" => "sort",
+                                    "SECTION_SORT_ORDER" => "asc",
+                                    "SEF_MODE" => "N",
+                                    "SET_LAST_MODIFIED" => "N",
+                                    "SET_STATUS_404" => "N",
+                                    "SET_TITLE" => "Y",
+                                    "SHOW_404" => "N",
+                                    "TOP_ELEMENT_COUNT" => "9",
+                                    "TOP_ELEMENT_SORT_FIELD" => "sort",
+                                    "TOP_ELEMENT_SORT_ORDER" => "asc",
+                                    "TOP_FIELD_CODE" => array(0=>"",1=>"",),
+                                    "TOP_LINE_ELEMENT_COUNT" => "3",
+                                    "TOP_PROPERTY_CODE" => array(0=>"",1=>"",),
+                                    "USE_FILTER" => "N",
+                                    "USE_PERMISSIONS" => "N",
+                                    "USE_RATING" => "N",
+                                    "USE_REVIEW" => "N",
+                                    "VARIABLE_ALIASES" => array("SECTION_ID"=>"SECTION_ID","ELEMENT_ID"=>"ELEMENT_ID",)
+                                )
+                            );
                             
                             $APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
                                 "AREA_FILE_SHOW" => "file",
