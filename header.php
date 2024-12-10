@@ -171,11 +171,7 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
 
         </header>
         <main class="content">
-
-            <div class="main">
-                <div class="container">
-                    <div class="main-slider slider">
-
+            
                         <?
                         // Получаем текущий URL
                         $current_url = $_SERVER['REQUEST_URI'];
@@ -617,9 +613,6 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
                                 </div>
                             </div>
                         <?}?>
-                    </div>
-                </div>
-            </div>
 
             <div class="info m-section">
                 <div class="container _type2">

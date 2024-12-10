@@ -2,25 +2,25 @@
 $this->setFrameMode(true);
 ?>
 
-<?
-$APPLICATION->AddHeadScript("/includes/slider/jquery.jcarousel.min.js");
-?>
-
-<div class="swiper-container">
-                            <div class="swiper-wrapper">
-                            	<?
-																foreach($arResult["ITEMS"] as $arItem)
-																{
-																	//echo "<pre>";print_r($arItem);echo "</pre>";
-																	?>
-                                <div class="swiper-slide">
-                                    <a href="<?=$arItem['PROPERTIES']['link']['VALUE']?>" class="main-slider__img">
-                                        <img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" alt="">
-                                    </a>
-                                </div>
-                                <?
-																	}
-																	?>
-                            </div>
+<div class="main">
+                <div class="container">
+                    <div class="main-slider slider">
+                        <div class="swiper-container">
+                                                    <div class="swiper-wrapper">
+                                                        <?
+                                                                                        foreach($arResult["ITEMS"] as $arItem)
+                                                                                        {
+                                                                                            //echo "<pre>";print_r($arItem);echo "</pre>";
+                                                                                            ?>
+                                                        <div class="swiper-slide">
+                                                            <a href="<?=$arItem['PROPERTIES']['link']['VALUE']?>" class="main-slider__img">
+                                                                <img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" alt="">
+                                                            </a>
+                                                        </div>
+                                                        <?}?>
+                                                    </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>        
 </div>
-<div class="swiper-pagination"></div>
