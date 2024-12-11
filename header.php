@@ -68,7 +68,10 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
     <meta name="keywords" content="">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/css/libs.min.css">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/css/style.min.css">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+    <script src="<?= SITE_TEMPLATE_PATH ?>/js/jquery.js"></script>
+    <script src="<?= SITE_TEMPLATE_PATH ?>/js/ajax.js"></script>
 
     <link href="/favicon.ico" rel="shortcut icon">
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -77,7 +80,34 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
 </head>
 
 <body class="m-page">
-<? $APPLICATION->ShowPanel(); ?>
+    <!--LiveInternet counter-->
+	<div style="display: none;">
+		<script type="text/javascript">
+			<!--
+			document.write("<a href='//www.liveinternet.ru/click' " + "target=_blank><img src='//counter.yadro.ru/hit?t52.6;r" + escape(document.referrer) + ((typeof(screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet: показано число просмотров и" + " посетителей за 24 часа' " + "border='0' width='88' height='31'><\/a>")
+			//
+			-->
+		</script>
+	</div>
+	<!--/LiveInternet-->
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function() {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-36214583-25', 'auto');
+		ga('send', 'pageview');
+	</script>
+    <? $APPLICATION->ShowPanel(); ?>
     <div class="wrapper">
         <header class="header">
             <div class="container _type2">
@@ -99,6 +129,17 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
                                 <img src="<?= SITE_TEMPLATE_PATH ?>/img/search.svg" alt="">
                             </a>
                             <?$APPLICATION->IncludeComponent(
+                                "bitrix:sale.basket.basket.small",
+                                "basket2",
+                                Array(
+                                    "PATH_TO_BASKET" => "/personal/cart/",
+                                    "PATH_TO_ORDER" => "/personal/cart/",
+                                    "SHOW_DELAY" => "N",
+                                    "SHOW_NOTAVAIL" => "Y",
+                                    "SHOW_SUBSCRIBE" => "Y"
+                                )
+                            );?>
+                            <?/* $APPLICATION->IncludeComponent(
                             "bitrix:sale.basket.basket.line", 
                             "top_cart_mob", 
                             array(
@@ -120,7 +161,19 @@ $real_path = $_SERVER['DOCUMENT_ROOT'] . $new_ex;
                                 "COMPONENT_TEMPLATE" => "top_cart_mob"
                             ),
                             false
-                        );?>
+                        ); */?>
+                        <?/*------------------------------- значёк корзины ------------------*/ ?>
+                        <?/* $APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            ".default",
+                            array(
+                                "AREA_FILE_SHOW" => "file",
+                                "PATH" => "/includes/small_basket2.php",
+                                "EDIT_TEMPLATE" => ""
+                            ),
+                            false
+                        ); */ ?>
+                        <?/*------------------------------- значёк корзины end------------------*/ ?>
                         </div>
                     </div>
 

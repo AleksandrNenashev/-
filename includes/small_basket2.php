@@ -21,3 +21,4 @@ if($_POST["ajaxaddid"] && $_POST["ajaxaction"] == 'add'){
 		"SHOW_SUBSCRIBE" => "Y"
 	)
 );?>
+<span class="cart-counter"><?= $quantity ?></span>

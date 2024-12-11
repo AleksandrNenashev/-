@@ -121,7 +121,7 @@ if (!empty($arResult['SECTIONS'])) {
                                             font-family: 'PF Agora Sans Pro', sans-serif; 
                                             border-radius: .4375em; 
                                             margin-top: auto;
-                                            " class="addtobasket btn btn_green" href="#" id="ajaxaction=add&ajaxaddid=<?=$item['ID']?>">КУПИТЬ</a>                                          
+                                            " class="addtobasket btn btn_green" href="#" id="add_<?=$arItem['ID']?>">КУПИТЬ</a>                                         
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -134,3 +134,35 @@ if (!empty($arResult['SECTIONS'])) {
     </div>
 </div>
 <?php endif; ?>
+
+<script>  
+function ajaxpostshow(url, data, selector) {
+    $.post(url, data, function (response) {
+        if (response.status === 'success') {
+            console.log(response.message);
+            $(selector).text(response.basket_count); // Обновляем счётчик корзины
+
+            // Скролл вверх до корзины
+            $('html, body').animate({
+                scrollTop: 0
+            }, 500);
+        } else {
+            console.error(response.message);
+        }
+    }).fail(function () {
+        console.error('Ошибка AJAX-запроса.');
+    });
+}
+
+function ajax_init(selector) {
+    $(document).off("click", selector).on("click", selector, function () {
+        var addbasketid = $(this).attr('id').replace('add_', '');
+        ajaxpostshow("/includes/small_basket_mob.php", { ajaxaddid: addbasketid, ajaxaction: 'add' }, ".cart-counter");
+        return false;
+    });
+}
+
+$(document).ready(function () {
+    ajax_init(".addtobasket");
+});
+</script>
